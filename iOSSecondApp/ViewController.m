@@ -41,15 +41,7 @@
 int flag;
 
 - (IBAction)transform:(UIButton *)sender {
-    for(flag = 1; flag < 12; flag++){
-        sleep(5);
-        NSLog(@"%d", flag);
+    
         self.view.backgroundColor = [self colorGiver];
-        NSLog(@"%@", self.view.backgroundColor);
-        if(flag == 11){
-            flag = 1;
-        }
-        
-    }
 }
 @end
