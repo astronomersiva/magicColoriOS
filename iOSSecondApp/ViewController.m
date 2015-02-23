@@ -13,15 +13,27 @@
 @end
 
 @implementation ViewController
-
+@synthesize animationTimer;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UITapGestureRecognizer *tapHere = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(stopAnimate)];
+    
+    tapHere.numberOfTapsRequired = 1;
+    [self.view addGestureRecognizer:tapHere];
+    
+    UITapGestureRecognizer *tapStart = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(startAnimate)];
+    
+    tapStart.numberOfTapsRequired = 2;
+    [self.view addGestureRecognizer:tapStart];
+    
+    
     // Do any additional setup after loading the view, typically from a nib.
-    
-    
-    [UIView animateWithDuration:2.0 animations: ^{
-        self.view.backgroundColor = [self colorGiver];
-    }];
+    animationTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                                target:self
+                                                              selector:@selector(changeBackground)
+                                                              userInfo:nil
+                                                               repeats:YES];
     
 }
 
@@ -38,10 +50,26 @@
     UIColor *abc = [UIColor colorWithRed:red green:green blue:blue alpha:1];
     return abc;
 }
-int flag;
 
-- (IBAction)transform:(UIButton *)sender {
+-(void) changeBackground{
     
-        self.view.backgroundColor = [self colorGiver];
+    [UIView animateWithDuration:0.8
+                     animations:^{
+                         self.view.backgroundColor = [self colorGiver];
+                         
+                     }];
 }
+
+-(void)stopAnimate{
+    [animationTimer invalidate];
+}
+
+-(void)startAnimate{
+    animationTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                      target:self
+                                                    selector:@selector(changeBackground)
+                                                    userInfo:nil
+                                                     repeats:YES];
+}
+
 @end

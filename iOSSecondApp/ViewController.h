@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
-- (IBAction)transform:(UIButton *)sender;
 
+@property NSTimer * animationTimer;
 
 @end
 
